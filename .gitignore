@@ -1,0 +1,66 @@
+*.log
+.DS_Store
+.env
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+/.codex
+/.cursor/
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/auth.json
+/node_modules
+/public/build
+/public/fonts-manifest.dev.json
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
+_ide_helper.php
+Homestead.json
+Homestead.yaml
+Thumbs.db
+
+# CargoTrace local backups and temporary scripts
+backup-*/
+backup_*/
+cek-data-lama.php
+pindahkan-data.php
+inspect-cargotrace-schema.php
+*.sqlite
+*.sqlite-*
+
+# Local inspection notes and development instructions
+AGENTS.md
+CLAUDE.md
+HASIL_PEMERIKSAAN_PESANAN.txt
+PEMERIKSAAN_ORDER_LANJUTAN.txt
+cargotrace-database-schema.txt
+cargotrace-perbaikan-source.txt
+logo-check.txt
+menu-navigation-check.txt
+peta-animasi.txt
+
+# Exclude backup and temporary files throughout the project
+*.backup
+*.backup.*
+*.bak
+*.backup-*
+
+# Additional backup files
+*-backup*
+app-before-chevron-fix.js
+settings-backup.js
+
+# Local test pages
+/public/app/cuaca-test.html
+/public/jam-test/
+/public/notif-test/
+/public/notif-test-v2/
+/public/peta-test/
+/public/pelanggan.html
