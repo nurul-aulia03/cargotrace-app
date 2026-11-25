@@ -64,3 +64,11 @@ settings-backup.js
 /public/notif-test-v2/
 /public/peta-test/
 /public/pelanggan.html
+
+# Local database exports - never commit
+cargotrace_data.sql
+cargotrace_data_hosting.sql
+*.sql
+.env
+.env.*
+!.env.example

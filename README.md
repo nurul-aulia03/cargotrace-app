@@ -1,177 +1,149 @@
 ﻿# CargoTrace — Global Shipment Visibility & Tracking Platform
 
-CargoTrace adalah aplikasi berbasis web untuk mengelola, memantau, dan melacak aktivitas pengiriman barang dalam satu platform terintegrasi.
+**Live Website:** https://cargotrace-app.ethiodeploy.app/
 
-Aplikasi ini dirancang untuk memberikan visibilitas proses pengiriman, pengelolaan pesanan, pemantauan status, riwayat perjalanan, serta penanganan pengecualian pengiriman.
+CargoTrace is a web-based shipment management and tracking platform designed to help administrators, logistics operators, and customers manage orders, monitor shipments, and view shipment progress in one integrated system.
 
-## Fitur Utama
+## Demo Website
 
-- **Dashboard:** Ringkasan statistik dan aktivitas pengiriman.
-- **Manajemen Pengiriman:** Pengelolaan data pengiriman barang.
-- **Pelacakan Pengiriman:** Pemantauan status dan riwayat perjalanan.
-- **Manajemen Armada:** Pengelolaan perusahaan dan layanan pengiriman.
-- **Manajemen Lokasi:** Pengelolaan lokasi asal dan tujuan.
-- **Manajemen Pesanan:** Pengelolaan pesanan pelanggan.
-- **Pengecualian Pengiriman:** Pencatatan dan penanganan kendala pengiriman.
-- **Notifikasi:** Informasi aktivitas dan pembaruan sistem.
-- **Audit Log:** Pencatatan aktivitas pengguna.
-- **Manajemen Pengguna:** Hak akses berdasarkan peran Administrator, Operator, dan Customer.
+Visit: https://cargotrace-app.ethiodeploy.app/
 
-## Teknologi
+## Demo Login Credentials
 
-| Teknologi | Kegunaan |
+The following demo accounts have been tested successfully against the hosted login API.
+
+| Role | Email | Password |
+|---|---|---|
+| Administrator | admin@cargotrace.test | `password` |
+| Logistics Operator | operator@cargotrace.test | `password` |
+| Customer | customer@cargotrace.test | `password` |
+
+**Note:** These credentials are for academic demonstration only. Do not use them for personal or sensitive information.
+
+## Main Features
+
+- **Dashboard:** Shipment statistics and operational overview.
+- **Shipment Management:** Manage shipment records and details.
+- **Shipment Tracking:** Monitor shipment status and tracking history.
+- **Order Management:** Manage customer shipment orders.
+- **Fleet Management:** Manage shipping companies and carriers.
+- **Location Management:** Manage shipment origins and destinations.
+- **Shipment Exceptions:** Record and manage shipment issues.
+- **Notifications:** Receive shipment and system updates.
+- **Audit Logs:** Record user activities.
+- **User Management:** Role-based access for Administrators, Operators, and Customers.
+
+## User Roles
+
+| Role | Description |
 |---|---|
-| Laravel 13 | Backend aplikasi dan REST API |
-| PHP 8.3 | Bahasa pemrograman backend |
-| MySQL 8.4 | Database |
-| HTML, CSS, JavaScript | Antarmuka aplikasi |
-| Composer | Manajemen dependensi PHP |
-| Node.js & NPM | Manajemen aset frontend |
-| Postman | Pengujian REST API |
-| Git & GitHub | Version control dan penyimpanan source code |
+| Administrator | Manages users and oversees platform operations. |
+| Logistics Operator | Handles orders and shipment operations. |
+| Customer | Creates and monitors personal shipment orders. |
 
-## Arsitektur Sistem
+## Technology Stack
 
-![Arsitektur CargoTrace](docs/Arsitektur_CargoTrace.png)
+| Technology | Purpose |
+|---|---|
+| Laravel 13 | Backend framework and REST API |
+| PHP 8.3 | Backend programming language |
+| MySQL | Relational database |
+| HTML, CSS, JavaScript | Frontend interface |
+| Composer | PHP dependency management |
+| Node.js and NPM | Frontend asset management |
+| Postman | API testing |
 
-## Entity Relationship Diagram (ERD)
+## Requirements
 
-![ERD CargoTrace](docs/ERD_CargoTrace.png)
+- PHP 8.3 or later
+- Composer
+- MySQL
+- Node.js and NPM
+- Git
 
-## Struktur Project
+## Local Installation
 
-```text
-cargotrace-app/
-├── app/
-├── bootstrap/
-├── config/
-├── database/
-├── docs/
-│   ├── ERD_CargoTrace.png
-│   └── Arsitektur_CargoTrace.png
-├── public/
-├── resources/
-├── routes/
-├── storage/
-├── tests/
-├── .env.example
-├── artisan
-├── composer.json
-├── package.json
-└── README.md
-```
+1. Clone the repository:
 
-## Persyaratan Sistem
+   ```bash
+   git clone https://github.com/nurul-aulia03/cargotrace-app.git
+   ```
 
-- PHP 8.3 atau versi yang kompatibel.
-- Composer.
-- MySQL 8.4 atau versi kompatibel.
-- Node.js dan NPM.
-- Git.
+2. Open the project directory:
 
-## Instalasi dan Menjalankan Aplikasi
+   ```bash
+   cd cargotrace-app
+   ```
 
-1. Clone repository:
+3. Install PHP dependencies:
 
-```bash
-git clone https://github.com/USERNAME/cargotrace-app.git
-cd cargotrace-app
-```
+   ```bash
+   composer install
+   ```
 
-2. Instal dependensi:
+4. Create the environment file:
 
-```bash
-composer install
-npm install
-```
+   ```bash
+   cp .env.example .env
+   ```
 
-3. Salin konfigurasi environment:
+5. Generate the application key:
 
-```bash
-cp .env.example .env
-```
+   ```bash
+   php artisan key:generate
+   ```
 
-Pada Windows PowerShell, gunakan:
+6. Configure your database connection in the `.env` file.
 
-```powershell
-Copy-Item .env.example .env
-```
+7. Run database migrations:
 
-4. Buat application key:
+   ```bash
+   php artisan migrate
+   ```
 
-```bash
-php artisan key:generate
-```
+8. Install and build frontend assets:
 
-5. Buat database MySQL dengan nama `cargotrace`.
+   ```bash
+   npm install
+   npm run build
+   ```
 
-6. Sesuaikan konfigurasi database pada file `.env`:
+9. Start the local development server:
 
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=cargotrace
-DB_USERNAME=root
-DB_PASSWORD=
-```
+   ```bash
+   php artisan serve
+   ```
 
-7. Jalankan migrasi database:
+10. Open `http://127.0.0.1:8000` in your browser.
 
-```bash
-php artisan migrate
-```
+## API
 
-8. Jalankan aplikasi:
+Main authentication endpoints:
 
-```bash
-npm run build
-php artisan serve
-```
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/login` | User login |
+| POST | `/api/register` | User registration |
+| GET | `/api/user` | Get authenticated user |
+| POST | `/api/logout` | User logout |
 
-Akses aplikasi melalui:
+Protected endpoints require valid authentication.
 
-```text
-http://127.0.0.1:8000
-```
+## Testing
 
-Catatan: Gunakan database dan akun pengujian yang telah disiapkan sendiri. Jangan memasukkan password, token, atau file `.env` ke repository publik.
-
-## Dokumentasi REST API
-
-REST API CargoTrace digunakan untuk mendukung komunikasi antara frontend dan backend.
-
-Pengujian API dilakukan menggunakan Postman, mencakup autentikasi, pengguna, pengiriman, pelacakan, pesanan, pengecualian, notifikasi, dan fitur lainnya.
-
-Base URL lokal:
-
-```text
-http://127.0.0.1:8000/api
-```
-
-## Pengujian Sistem
-
-Pengujian dilakukan untuk memeriksa autentikasi, hak akses berdasarkan peran, pengelolaan pesanan, pengiriman, pelacakan, serta penanganan pengecualian.
-
-Menjalankan pengujian otomatis:
+Run the automated test suite:
 
 ```bash
 php artisan test
 ```
 
-## Peran Pengguna
+## Project Repository
 
-| Peran | Hak Akses |
-|---|---|
-| Administrator | Mengelola dan memantau keseluruhan sistem |
-| Logistics Operator | Mengelola operasional pengiriman dan pesanan |
-| Customer | Membuat pesanan dan memantau pengiriman miliknya |
+GitHub: https://github.com/nurul-aulia03/cargotrace-app
 
-## Pengembang
+## Developer
 
-**CargoTrace — UAS Project**
+**CargoTrace — Academic Final Project**
 
-Global Shipment Visibility & Tracking Platform.
+© 2026 CargoTrace
 
----
-© 2026 CargoTrace. All rights reserved.

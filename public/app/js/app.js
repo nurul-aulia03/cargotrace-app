@@ -1104,6 +1104,10 @@ const V = {
         <td>${money(o.total_amount)}</td>
         <td>
           <button class="button-secondary" data-order="detail" data-id="${o.id}">Detail</button>
+          ${o.order_status === 'PENDING' && !o.shipment_id ? `
+            <button class="button-secondary" data-order="edit" data-id="${o.id}">Edit</button>
+            <button class="button-secondary" data-order="delete" data-id="${o.id}">Hapus</button>
+          ` : ''}
           ${staff && o.order_status === 'PENDING' ? `
             <button class="button-primary" data-order="approve" data-id="${o.id}">Proses</button>
             <button class="button-secondary" data-order="reject" data-id="${o.id}">Tolak</button>
@@ -1201,6 +1205,70 @@ const V = {
         if (action === 'detail') return go('orderDetail', id);
 
         if (action === 'tracking') return go('tracking', id);
+
+        if (action === 'delete') {
+          if (!confirm('Hapus pesanan ini secara permanen? Tindakan ini tidak dapat dibatalkan.')) return;
+          try {
+            const r = await api(`/orders/${id}`, { method: 'DELETE' });
+            showToast(r.message || 'Pesanan berhasil dihapus.');
+            await go('orders');
+          } catch (e) { showToast('Gagal menghapus pesanan: ' + e.message); }
+          return;
+        }
+
+        if (action === 'edit') {
+          try {
+            const o = await api(`/orders/${id}`);
+            const modal = $('#orderApprovalModal');
+            const val = value => esc(value ?? '');
+            modal.hidden = false;
+            modal.innerHTML = `
+              <article class="card table-card" style="margin:20px 0;padding:20px">
+                <h3>Edit Pesanan ${val(o.order_number)}</h3>
+                <p class="muted">Perubahan hanya dapat dilakukan selama pesanan berstatus PENDING.</p>
+                <form id="editOrderForm">
+                  <div class="shipment-filter-grid">
+                    <div><label>Nama Barang *</label><input name="item_name" required maxlength="150" value="${val(o.item_name)}"></div>
+                    <div><label>Jumlah *</label><input name="quantity" type="number" min="1" required value="${val(o.quantity)}"></div>
+                    <div><label>Berat (kg) *</label><input name="weight_kg" type="number" min="0.01" step="0.01" required value="${val(o.weight_kg)}"></div>
+                    <div><label>Nilai Barang (Rp)</label><input name="item_value" type="number" min="0" value="${val(o.item_value)}"></div>
+                    <div><label>Pembayaran</label><select name="payment_method"><option value="">Pilih pembayaran</option><option value="TRANSFER" ${o.payment_method === 'TRANSFER' ? 'selected' : ''}>Transfer</option><option value="CASH" ${o.payment_method === 'CASH' ? 'selected' : ''}>Tunai</option><option value="COD" ${o.payment_method === 'COD' ? 'selected' : ''}>COD</option></select></div>
+                  </div>
+                  <div style="margin-top:14px"><label>Deskripsi Barang</label><textarea name="item_description" rows="2">${val(o.item_description)}</textarea></div>
+                  <div class="shipment-filter-grid" style="margin-top:14px">
+                    <div><label>Nama Pengirim *</label><input name="sender_name" required value="${val(o.sender_name)}"></div>
+                    <div><label>Telepon Pengirim *</label><input name="sender_phone" required value="${val(o.sender_phone)}"></div>
+                    <div><label>Nama Penerima *</label><input name="recipient_name" required value="${val(o.recipient_name)}"></div>
+                    <div><label>Telepon Penerima *</label><input name="recipient_phone" required value="${val(o.recipient_phone)}"></div>
+                    <div><label>Alamat Pengirim *</label><textarea name="sender_address" rows="3" required>${val(o.sender_address)}</textarea></div>
+                    <div><label>Alamat Penerima *</label><textarea name="recipient_address" rows="3" required>${val(o.recipient_address)}</textarea></div>
+                  </div>
+                  <div style="margin-top:14px"><label>Catatan</label><textarea name="notes" rows="2">${val(o.notes)}</textarea></div>
+                  <div style="display:flex;gap:10px;margin-top:16px"><button class="button-primary" type="submit">Simpan Perubahan</button><button class="button-secondary" type="button" id="closeEditOrder">Batal</button></div>
+                </form>
+              </article>`;
+            $('#closeEditOrder').onclick = () => { modal.hidden = true; modal.innerHTML = ''; };
+            $('#editOrderForm').onsubmit = async event => {
+              event.preventDefault();
+              const form = event.currentTarget;
+              const body = Object.fromEntries(new FormData(form).entries());
+              body.quantity = Number(body.quantity);
+              body.weight_kg = Number(body.weight_kg);
+              body.item_value = Number(body.item_value || 0);
+              const submit = form.querySelector('[type="submit"]');
+              submit.disabled = true;
+              try {
+                const result = await api(`/orders/${id}`, { method: 'PUT', body });
+                showToast(result.message || 'Pesanan berhasil diperbarui.');
+                await go('orders');
+              } catch (error) {
+                showToast('Gagal memperbarui pesanan: ' + error.message);
+                submit.disabled = false;
+              }
+            };
+          } catch (error) { showToast('Gagal membuka pesanan: ' + error.message); }
+          return;
+        }
 
         if (action === 'cancel') {
           if (!confirm('Batalkan pesanan ini?')) return;

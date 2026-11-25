@@ -3111,3 +3111,95 @@ tbody tr:nth-child(even) td {
         gap: 15px !important;
     }
 }
+
+/* ===== CARGOTRACE EDIT ORDER FORM FIX ===== */
+#orderApprovalModal #editOrderForm {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+}
+
+#orderApprovalModal #editOrderForm .shipment-filter-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 18px 22px !important;
+    width: 100%;
+    margin: 0 !important;
+}
+
+#orderApprovalModal #editOrderForm .shipment-filter-grid > div,
+#orderApprovalModal #editOrderForm > div {
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#orderApprovalModal #editOrderForm label {
+    display: block !important;
+    width: 100%;
+    margin: 0 0 8px !important;
+    color: #e9dff0;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+#orderApprovalModal #editOrderForm input,
+#orderApprovalModal #editOrderForm select,
+#orderApprovalModal #editOrderForm textarea {
+    display: block !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 11px 13px !important;
+    border: 1px solid #594260 !important;
+    border-radius: 9px !important;
+    background: #19121e !important;
+    color: #f8f2fc !important;
+    font: inherit;
+}
+
+#orderApprovalModal #editOrderForm textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+#orderApprovalModal #editOrderForm input:focus,
+#orderApprovalModal #editOrderForm select:focus,
+#orderApprovalModal #editOrderForm textarea:focus {
+    outline: none;
+    border-color: #bd83d5 !important;
+    box-shadow: 0 0 0 3px rgba(189, 131, 213, .15);
+}
+
+#orderApprovalModal #editOrderForm > div[style*="margin-top"] {
+    margin-top: 0 !important;
+}
+
+#orderApprovalModal #editOrderForm > div:last-child {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 12px !important;
+    margin-top: 4px !important;
+}
+
+#orderApprovalModal #editOrderForm button {
+    min-height: 42px;
+    padding: 10px 20px;
+    border-radius: 9px;
+}
+
+@media (max-width: 650px) {
+    #orderApprovalModal #editOrderForm .shipment-filter-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    #orderApprovalModal #editOrderForm > div:last-child button {
+        flex: 1;
+    }
+}
+/* ===== END EDIT ORDER FORM FIX ===== */
+

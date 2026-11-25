@@ -160,6 +160,86 @@ class OrderController extends Controller
         ]);
     }
 
+
+    /**
+     * Memperbarui data pesanan yang masih menunggu.
+     * Customer hanya dapat mengubah pesanan miliknya; Admin/Operator dapat mengubah pesanan PENDING.
+     */
+    public function update(Request $request, Order $order)
+    {
+        $this->visibleOrder($request, $order);
+
+        DB::transaction(function () use ($request, $order) {
+            $lockedOrder = Order::whereKey($order->id)->lockForUpdate()->firstOrFail();
+
+            if ($lockedOrder->order_status !== 'PENDING' || $lockedOrder->shipment_id !== null) {
+                throw ValidationException::withMessages([
+                    'order_status' => ['Pesanan hanya dapat diedit selama masih PENDING dan belum memiliki pengiriman.'],
+                ]);
+            }
+
+            $data = $request->validate([
+                'item_name' => 'required|string|max:150',
+                'item_description' => 'nullable|string|max:2000',
+                'quantity' => 'required|integer|min:1|max:100000',
+                'weight_kg' => 'required|numeric|min:0.01|max:100000',
+                'sender_name' => 'required|string|max:150',
+                'sender_phone' => 'required|string|max:30',
+                'sender_address' => 'required|string|max:2000',
+                'recipient_name' => 'required|string|max:150',
+                'recipient_phone' => 'required|string|max:30',
+                'recipient_address' => 'required|string|max:2000',
+                'item_value' => 'nullable|numeric|min:0|max:999999999999',
+                'payment_method' => 'nullable|in:TRANSFER,CASH,COD',
+                'notes' => 'nullable|string|max:2000',
+            ]);
+
+            $lockedOrder->update([
+                'item_name' => $data['item_name'],
+                'item_description' => $data['item_description'] ?? null,
+                'quantity' => $data['quantity'],
+                'weight_kg' => $data['weight_kg'],
+                'sender_name' => $data['sender_name'],
+                'sender_phone' => $data['sender_phone'],
+                'sender_address' => $data['sender_address'],
+                'recipient_name' => $data['recipient_name'],
+                'recipient_phone' => $data['recipient_phone'],
+                'recipient_address' => $data['recipient_address'],
+                'item_value' => $data['item_value'] ?? 0,
+                'payment_method' => $data['payment_method'] ?? null,
+                'notes' => $data['notes'] ?? null,
+            ]);
+
+            AuditLog::record($request->user()->id, 'order:update', 'order', $lockedOrder->id);
+        });
+
+        return response()->json([
+            'message' => 'Pesanan berhasil diperbarui.',
+            'data' => $order->fresh()->load($this->relations()),
+        ]);
+    }
+
+    /** Menghapus hanya pesanan PENDING yang belum menjadi shipment. */
+    public function destroy(Request $request, Order $order)
+    {
+        $this->visibleOrder($request, $order);
+
+        DB::transaction(function () use ($request, $order) {
+            $lockedOrder = Order::whereKey($order->id)->lockForUpdate()->firstOrFail();
+
+            if ($lockedOrder->order_status !== 'PENDING' || $lockedOrder->shipment_id !== null) {
+                throw ValidationException::withMessages([
+                    'order_status' => ['Pesanan yang sudah diproses atau memiliki pengiriman tidak dapat dihapus.'],
+                ]);
+            }
+
+            AuditLog::record($request->user()->id, 'order:delete', 'order', $lockedOrder->id);
+            $lockedOrder->delete();
+        });
+
+        return response()->json(['message' => 'Pesanan berhasil dihapus.']);
+    }
+
     /**
      * Operator/Admin menentukan ekspedisi dan lokasi,
      * kemudian menyetujui pesanan dan membuat shipment.
