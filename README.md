@@ -147,3 +147,28 @@ GitHub: https://github.com/nurul-aulia03/cargotrace-app
 
 © 2026 CargoTrace
 
+## System Documentation
+
+### System Architecture
+
+The following diagram illustrates the overall architecture of the CargoTrace application.
+
+![CargoTrace System Architecture](docs/Arsitektur_CargoTrace.png)
+
+### Entity Relationship Diagram (ERD)
+
+The following ERD illustrates the database structure and relationships between entities in CargoTrace.
+
+![CargoTrace Entity Relationship Diagram](docs/ERD_CargoTrace.png)
+
+## Project Documentation
+
+The repository includes the following supporting documentation:
+
+- System architecture diagram
+- Entity Relationship Diagram (ERD)
+- Laravel application source code
+- Database migrations and seeders
+- REST API authentication documentation
+- Automated application tests
+
