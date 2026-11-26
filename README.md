@@ -7,6 +7,18 @@
 
 [Live Application](https://cargotrace-app.ethiodeploy.app/app/index.html) · [GitHub Repository](https://github.com/nurul-aulia03/cargotrace-app)
 
+### Demo Login Accounts
+
+Use the following accounts to explore CargoTrace according to each user role:
+
+| Role | Email | Password |
+|---|---|---|
+| Administrator | `admin@cargotrace.test` | `password` |
+| Logistics Operator | `operator@cargotrace.test` | `password` |
+| Customer | `customer@cargotrace.test` | `password` |
+
+> **Note:** These are the demo credentials previously documented for the project. Please verify that the accounts are active on the hosted application before the project is evaluated. Do not use these shared demo credentials for real or sensitive data.
+
 </div>
 
 ---
@@ -560,17 +572,7 @@ Never publish real user data, passwords, tokens, private keys, or production `.e
 
 ### Demo login accounts
 
-The project documentation has previously listed the following demonstration account email addresses:
-
-| Role | Email |
-|---|---|
-| Administrator | `admin@cargotrace.test` |
-| Logistics Operator | `operator@cargotrace.test` |
-| Customer | `customer@cargotrace.test` |
-
-The previously documented password is `password`, but the hosted credentials have not been re-tested during this documentation update. Treat these as local/demo references only and verify them before presenting them as working hosted accounts.
-
-> Demo accounts are for academic demonstration only. Do not use real personal information or production credentials in public demo accounts. Change or disable shared credentials if they expose sensitive data.
+The demo login credentials are provided near the top of this README, directly below the Live Application link, so evaluators can find them before opening the hosted application.
 
 ## 19. Deployment Checklist
 
