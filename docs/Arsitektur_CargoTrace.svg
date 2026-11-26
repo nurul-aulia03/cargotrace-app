@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="920" viewBox="0 0 1200 920">
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
+  </marker>
+  <style>
+    .box{fill:#f8fafc;stroke:#243b64;stroke-width:2.5;rx:14}
+    .title{font:bold 23px Arial;fill:#142746}
+    .sub{font:17px Arial;fill:#334155}
+    .heading{font:bold 30px Arial;fill:#142746}
+    .arrow{stroke:#64748b;stroke-width:3;fill:none;marker-end:url(#arrow)}
+  </style>
+</defs>
+<rect width="1200" height="920" fill="#ffffff"/>
+<text x="600" y="48" text-anchor="middle" class="heading">CARGOTRACE SYSTEM ARCHITECTURE</text>
+<text x="600" y="78" text-anchor="middle" class="sub">Global Shipment Visibility &amp; Tracking Platform</text>
+
+<rect x="170" y="110" width="860" height="85" class="box"/>
+<text x="600" y="145" text-anchor="middle" class="title">USERS</text>
+<text x="600" y="174" text-anchor="middle" class="sub">Administrator  |  Logistics Operator  |  Customer</text>
+
+<path d="M600 195 V235" class="arrow"/>
+<rect x="170" y="240" width="860" height="100" class="box"/>
+<text x="600" y="278" text-anchor="middle" class="title">FRONTEND — WEB APPLICATION</text>
+<text x="600" y="308" text-anchor="middle" class="sub">HTML • CSS • JavaScript • Fetch API</text>
+<text x="600" y="330" text-anchor="middle" class="sub">Login • Dashboard • Orders • Shipments • Tracking</text>
+
+<path d="M600 340 V385" class="arrow"/>
+<rect x="170" y="390" width="860" height="95" class="box"/>
+<text x="600" y="427" text-anchor="middle" class="title">LARAVEL ROUTES &amp; MIDDLEWARE</text>
+<text x="600" y="457" text-anchor="middle" class="sub">API Routing • Authentication • Validation • Authorization</text>
+
+<path d="M600 485 V530" class="arrow"/>
+<rect x="170" y="535" width="860" height="100" class="box"/>
+<text x="600" y="573" text-anchor="middle" class="title">CONTROLLERS &amp; BUSINESS LOGIC</text>
+<text x="600" y="603" text-anchor="middle" class="sub">Auth • Orders • Shipments • Tracking • Exceptions • Notifications</text>
+<text x="600" y="625" text-anchor="middle" class="sub">Dashboard • Profile • Resources</text>
+
+<path d="M600 635 V680" class="arrow"/>
+<rect x="170" y="685" width="860" height="85" class="box"/>
+<text x="600" y="720" text-anchor="middle" class="title">ELOQUENT ORM &amp; MODELS</text>
+<text x="600" y="750" text-anchor="middle" class="sub">Users • Orders • Shipments • Carriers • Locations • Tracking Events</text>
+
+<path d="M600 770 V810" class="arrow"/>
+<rect x="170" y="815" width="860" height="75" class="box"/>
+<text x="600" y="849" text-anchor="middle" class="title">MYSQL DATABASE</text>
+<text x="600" y="876" text-anchor="middle" class="sub">Persistent application data and relationships</text>
+
+<rect x="15" y="390" width="130" height="95" class="box"/>
+<text x="80" y="425" text-anchor="middle" class="title" font-size="17">MAP</text>
+<text x="80" y="453" text-anchor="middle" class="sub">Leaflet</text>
+<text x="80" y="474" text-anchor="middle" class="sub">OSM</text>
+<path d="M145 437 H165" class="arrow"/>
+
+<rect x="1055" y="390" width="130" height="95" class="box"/>
+<text x="1120" y="425" text-anchor="middle" class="title" font-size="17">SERVICES</text>
+<text x="1120" y="453" text-anchor="middle" class="sub">External APIs</text>
+<text x="1120" y="474" text-anchor="middle" class="sub">If configured</text>
+<path d="M1030 437 H1050" class="arrow"/>
+</svg>
